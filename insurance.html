@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>מערכת הצעות ביטוח רכב - הראל דמה</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #eef2f7; margin: 0; padding: 20px; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); width: 100%; max-width: 600px; margin: auto; }
+        h2 { color: #005596; text-align: center; border-bottom: 2px solid #005596; padding-bottom: 10px; }
+        .section-title { font-weight: bold; color: #005596; margin-top: 20px; background: #f0f7ff; padding: 5px 10px; border-right: 4px solid #005596; }
+        label { display: block; margin-top: 15px; font-weight: 600; font-size: 14px; }
+        input, select, button { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        .checkbox-group { display: flex; align-items: center; margin-top: 10px; gap: 10px; }
+        .checkbox-group input { width: auto; margin: 0; }
+        button { background-color: #005596; color: white; border: none; cursor: pointer; font-size: 18px; margin-top: 25px; transition: 0.3s; }
+        button:hover { background-color: #003d6b; }
+        .hidden { display: none; }
+        .result-box { background: #d4edda; color: #155724; padding: 20px; border-radius: 8px; text-align: center; margin-top: 20px; }
+        .price-tag { font-size: 24px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="login-section" class="container">
+        <h2>כניסה למערכת סוכנים</h2>
+        <label>שם משתמש</label>
+        <input type="text" id="username" placeholder="ABC123A">
+        <label>סיסמה</label>
+        <input type="password" id="password" placeholder="********">
+        <button onclick="login()">התחבר למערכת</button>
+        <p id="error-msg" style="color: red; text-align: center; display: none;">פרטי התחברות שגויים</p>
+    </div>
+
+    <div id="form-section" class="container hidden">
+        <h2>הצעה לביטוח רכב פרטי ומסחרי</h2>
+        <form id="insurance-form">
+            
+            <div class="section-title">פרטי הרכב [cite: 51]</div>
+            <label>מספר רישוי [cite: 52]</label>
+            <input type="text" id="car_id" required>
+            
+            <label>יצרן ודגם [cite: 54]</label>
+            <input type="text" id="model" required>
+
+            <label>שנת ייצור / עלייה לכביש [cite: 54]</label>
+            <input type="number" id="year" min="1990" max="2026" required>
+
+            <div class="section-title">פרטי הנהגים [cite: 156]</div>
+            <label>מספר הנוהגים ברכב באופן קבוע [cite: 159]</label>
+            <input type="number" min="1" required>
+            
+            <label>גיל הנהג הצעיר ביותר [cite: 158]</label>
+            <input type="number" id="youngest_driver" required>
+
+            <div class="section-title">עבר ביטוחי (3 שנים אחרונות) [cite: 92]</div>
+            <label>מספר תביעות בשלוש השנים האחרונות [cite: 94]</label>
+            <select id="claims">
+                <option value="0">ללא תביעות</option>
+                <option value="1">תביעה אחת</option>
+                <option value="2">שתי תביעות ומעלה</option>
+            </select>
+
+            <div class="section-title">הכיסוי המבוקש [cite: 141]</div>
+            <label>בחר סוג כיסוי</label>
+            <select id="insurance_type" onchange="calculatePrice()">
+                <option value="1500">חובה בלבד (1,500 ₪)</option>
+                <option value="2500">חובה וצד ג' (2,500 ₪)</option>
+                <option value="5000">חובה ומקיף (5,000 ₪)</option>
+            </select>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="mirrors_extra" onchange="calculatePrice()">
+                <label for="mirrors_extra">הוספת כיסוי פנסים ומראות צד אקסטרא (300 ₪) </label>
+            </div>
+
+            <button type="button" onclick="showFinalPrice()">הפק הצעת מחיר</button>
+        </form>
+
+        <div id="result" class="result-box hidden">
+            <h3>סיכום הצעת מחיר:</h3>
+            <p>המחיר הכולל עבורך הוא:</p>
+            <div class="price-tag" id="final_price_display">₪0</div>
+            <p style="font-size: 12px; margin-top: 10px;">*בסיס לקביעת ערך השוק: מחירון יצחק לוי [cite: 306]</p>
+            <button onclick="location.reload()" style="background: #6c757d;">הצעה חדשה</button>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            if (user === "ABC123A" && pass === "12345678") {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('form-section').classList.remove('hidden');
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+
+        function calculatePrice() {
+            let basePrice = parseInt(document.getElementById('insurance_type').value);
+            let mirrorsPrice = document.getElementById('mirrors_extra').checked ? 300 : 0;
+            return basePrice + mirrorsPrice;
+        }
+
+        function showFinalPrice() {
+            const total = calculatePrice();
+            document.getElementById('insurance-form').classList.add('hidden');
+            document.getElementById('result').classList.remove('hidden');
+            document.getElementById('final_price_display').innerText = '₪' + total.toLocaleString();
+        }
+    </script>
+</body>
+</html>
