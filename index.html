@@ -10,6 +10,7 @@
             --secondary-color: #003d6b;
             --bg-color: #f4f7f9;
             --text-color: #333;
+            --accent-color: #4fc3f7; /* צבע הדגשה טכנולוגי */
         }
 
         body {
@@ -21,10 +22,49 @@
             align-items: center;
             height: 100vh;
             color: var(--text-color);
+            overflow: hidden; /* מונע גלילה מיותרת */
+            position: relative;
+        }
+
+        /* --- אנימציית רקע: קווי קוד זורמים --- */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 85, 150, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 85, 150, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: -2;
+        }
+
+        .bg-flow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 50px,
+                rgba(79, 195, 247, 0.1) 50px,
+                rgba(79, 195, 247, 0.1) 100px
+            );
+            z-index: -1;
+            animation: moveBg 15s linear infinite;
+        }
+
+        @keyframes moveBg {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .card {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
@@ -32,21 +72,49 @@
             width: 90%;
             text-align: center;
             border-top: 5px solid var(--primary-color);
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(5px);
         }
 
+        /* --- אנימציית טקסט מקליד --- */
         h1 {
             color: var(--primary-color);
             margin-bottom: 10px;
             font-size: 2.5rem;
             letter-spacing: -1px;
+            overflow: hidden; /* מבטיח שהטקסט יופיע רק כשהאנימציה רצה */
+            border-right: .15em solid var(--primary-color); /* הסמן המהבהב */
+            white-space: nowrap; /* מונע שבירת שורה */
+            margin: 0 auto; /* מרכז את הטקסט */
+            animation: 
+                typing 3s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color); }
         }
 
         p {
             color: #666;
             line-height: 1.6;
             margin-bottom: 25px;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards 3.5s; /* מופיע אחרי הכותרת */
         }
 
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* --- כפתור עם אפקט פולס --- */
         .btn {
             display: inline-block;
             width: 100%;
@@ -59,12 +127,33 @@
             font-size: 1.1rem;
             transition: all 0.3s ease;
             box-sizing: border-box;
+            position: relative;
+            animation: fadeIn 1s ease-in forwards 4s;
+            opacity: 0;
         }
 
         .btn:hover {
             background-color: var(--secondary-color);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 0 0 rgba(0, 85, 150, 0.7);
+            animation: pulse 2s infinite 5s; /* פולס שמתחיל אחרי ההופעה */
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 85, 150, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 85, 150, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 85, 150, 0); }
         }
 
         .status-indicator {
@@ -78,6 +167,8 @@
             background: #e8f5e9;
             padding: 8px;
             border-radius: 30px;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards 4.5s;
         }
 
         .dot {
@@ -98,9 +189,11 @@
 </head>
 <body>
 
+    <div class="bg-flow"></div>
+
     <div class="card">
         <h1>Flux-il</h1>
-        <p>מערכת ה-CRM והאוטומציה שלך בבניה. <br> בנתיים תוכל להתחיל בבדיקת סימולטור הביטוח.</p>
+        <p>מערכת ה-CRM והאוטומציה שלך מוכנה לעבודה. <br> תוכל להתחיל בבדיקת סימולטור הביטוח.</p>
         
         <a href="insurance.html" class="btn">כניסה לביטוח דמה</a>
 
