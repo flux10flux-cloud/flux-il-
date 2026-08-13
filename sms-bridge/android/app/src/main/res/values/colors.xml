@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ink">#0B2A3A</color>
+    <color name="ink_soft">#1D4558</color>
+    <color name="foam">#F3F8FB</color>
+    <color name="sea">#0F6B8F</color>
+    <color name="signal">#2BB7A5</color>
+    <color name="white">#FFFFFF</color>
+</resources>

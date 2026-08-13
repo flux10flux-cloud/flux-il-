@@ -1,1 +1,9 @@
-
+node_modules/
+.DS_Store
+*.log
+.env
+sms-bridge/node_modules/
+sms-bridge/android/.gradle/
+sms-bridge/android/local.properties
+sms-bridge/android/**/build/
+sms-bridge/android/.idea/

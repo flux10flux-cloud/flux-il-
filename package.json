@@ -1,1 +1,9 @@
-
+{
+  "name": "flux-il",
+  "private": true,
+  "scripts": {
+    "sms-bridge": "npm --prefix sms-bridge start",
+    "sms-bridge:install": "npm --prefix sms-bridge install",
+    "sms-bridge:dev": "npm --prefix sms-bridge run dev"
+  }
+}

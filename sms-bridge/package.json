@@ -1,0 +1,21 @@
+{
+  "name": "flux-sms-bridge",
+  "version": "1.0.0",
+  "description": "Sync SMS from Android phone to computer in real time",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "qrcode": "^1.5.4",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.1"
+  }
+}

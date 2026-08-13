@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flux SMS Bridge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Rubik:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <div class="signal-lines" aria-hidden="true"></div>
+
+  <main class="app">
+    <section id="setup" class="setup">
+      <div class="setup-copy">
+        <p class="brand">Flux SMS</p>
+        <h1>הסמסים מהטלפון — על המסך שלכם</h1>
+        <p class="lede">חברו את Android למחשב בקוד אחד. הודעות חדשות מופיעות כאן בזמן אמת.</p>
+        <div class="cta-row">
+          <button id="enter-inbox" type="button" class="btn primary">כניסה לתיבה</button>
+          <a class="btn ghost" href="#how" id="how-link">איך מחברים</a>
+        </div>
+      </div>
+      <aside class="pair-panel" aria-label="פרטי צימוד">
+        <div class="pair-glow"></div>
+        <p class="pair-label">קוד צימוד</p>
+        <p id="pairing-code" class="pairing-code">••••••</p>
+        <img id="qr" class="qr" alt="קוד QR לצימוד" width="220" height="220" />
+        <p id="base-url" class="base-url">טוען כתובת שרת…</p>
+        <p class="pair-hint">הזינו את הכתובת והקוד באפליקציית Android</p>
+      </aside>
+    </section>
+
+    <section id="how" class="how hidden">
+      <h2>שלושה צעדים</h2>
+      <ol>
+        <li>הריצו את השרת במחשב: <code>npm start</code> מתוך תיקיית <code>sms-bridge</code></li>
+        <li>התקינו את אפליקציית Android ואשרו הרשאת SMS</li>
+        <li>הזינו את כתובת ה-LAN ואת קוד הצימוד — זהו</li>
+      </ol>
+      <p class="note">iPhone: אין גישה לסמסים לאפליקציות צד ג׳. השתמשו ב־Text Message Forwarding של Apple ל־Mac.</p>
+    </section>
+
+    <section id="inbox" class="inbox hidden" aria-live="polite">
+      <header class="inbox-bar">
+        <div>
+          <p class="brand small">Flux SMS</p>
+          <h2>תיבת סמסים</h2>
+        </div>
+        <div class="status-block">
+          <span id="status-dot" class="status-dot offline"></span>
+          <div>
+            <p id="status-text">ממתין לטלפון…</p>
+            <p id="status-meta" class="meta">אין חיבור עדיין</p>
+          </div>
+          <button id="clear-btn" type="button" class="btn ghost compact">נקה</button>
+          <button id="back-setup" type="button" class="btn ghost compact">צימוד</button>
+        </div>
+      </header>
+
+      <div class="inbox-layout">
+        <aside class="threads" id="threads" aria-label="שיחות"></aside>
+        <section class="thread" aria-label="הודעות">
+          <header class="thread-head">
+            <h3 id="thread-title">בחרו שיחה</h3>
+            <p id="thread-sub" class="meta">ההודעות יופיעו כאן כשהטלפון מחובר</p>
+          </header>
+          <div id="messages" class="messages"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

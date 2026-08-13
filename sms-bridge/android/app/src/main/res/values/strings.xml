@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Flux SMS</string>
+    <string name="subtitle">מחברים את הסמסים מהטלפון למחשב בזמן אמת.</string>
+    <string name="server_url_label">כתובת השרת במחשב</string>
+    <string name="server_url_hint">http://192.168.1.10:8787</string>
+    <string name="pairing_code_label">קוד צימוד</string>
+    <string name="pairing_code_hint">לדוגמה AB12CD</string>
+    <string name="request_permissions">אישור הרשאות SMS</string>
+    <string name="connect">חבר למחשב</string>
+    <string name="disconnect">נתק</string>
+    <string name="status_idle">הזינו את הפרטים מהמסך במחשב והתחברו.</string>
+    <string name="status_connected">מחובר — סמסים חדשים יישלחו למחשב.</string>
+    <string name="status_disconnected">נותק מהמחשב.</string>
+    <string name="status_permissions_ok">ההרשאות אושרו.</string>
+    <string name="status_permissions_missing">חסרות הרשאות SMS. בלי זה לא ניתן לסנכרן.</string>
+    <string name="error_bad_url">כתובת השרת חייבת להתחיל ב־http:// או https://</string>
+    <string name="error_bad_code">קוד הצימוד קצר מדי</string>
+    <string name="toast_connected">הצימוד נשמר</string>
+    <string name="channel_name">Flux SMS Bridge</string>
+    <string name="service_running">מסנכרן סמסים למחשב</string>
+    <string name="service_waiting">ממתין לשרת במחשב…</string>
+    <string name="help_text">הטלפון והמחשב צריכים להיות באותה רשת Wi‑Fi. את הכתובת ואת הקוד תראו במסך Flux SMS במחשב. iPhone לא נתמך בגלל מגבלות Apple.</string>
+</resources>
